@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { ThemeProvider } from "styled-components";
 import { BrowserRouter } from "react-router-dom";
-// import { PersistGate } from "redux-persist/integration/react";
-// import { Provider } from "react-redux";
-// import { persistor, store } from "./redux/store.js";
+import { PersistGate } from "redux-persist/integration/react";
+import { Provider } from "react-redux";
+import { persistor, store } from "./redux/store.js";
 import App from "./App.jsx";
 
 const theme = {
@@ -39,9 +39,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     {/* <PersistGate loading={null} persistor={persistor}> */}
       <BrowserRouter basename="/medicines-delivery">
         <ThemeProvider theme={theme}>
-          {/* <Provider store={store}> */}
+          <Provider store={store}>
             <App />
-          {/* </Provider> */}
+          </Provider>
         </ThemeProvider>
       </BrowserRouter>
     {/* </PersistGate> */}
