@@ -6,6 +6,8 @@ import {
 } from "redux-persist";
 // import storage from "redux-persist/lib/storage";
 import { shopsReducer } from "./shopsSlice";
+import { drugReducer } from "./drugsSlice";
+import { assortmentReducer } from "./assortmentSlice";
 
 // const medicinesPersistConfig = {
 //   key: "medicines",
@@ -15,6 +17,8 @@ import { shopsReducer } from "./shopsSlice";
 export const store = configureStore({
   reducer: {
     shops: shopsReducer,
+    drugs: drugReducer,
+    assortment: assortmentReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

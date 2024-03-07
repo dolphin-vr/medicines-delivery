@@ -7,8 +7,37 @@ export const requester = axios.create({
 
 export const fetchShops = createAsyncThunk("shops/fetchShops", async (_, thunkAPI) => {
   try {
-    console.log("get shops");
+    // console.log("get shops");
     const response = await requester.get("/shops");
+    return response.data;
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.message);
+  }
+});
+
+export const fetchDrugs = createAsyncThunk("drugs/fetchDrugs", async (_, thunkAPI) => {
+  try {
+    // console.log("get drugs");
+    const response = await requester.get("/drugs");
+    return response.data;
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.message);
+  }
+});
+
+export const fetchAssortment = createAsyncThunk("drugs/fetchAssortment", async (_, thunkAPI) => {
+  try {
+    // console.log("get /assortment");
+    const response = await requester.get("/assortment");
+    return response.data;
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.message);
+  }
+});
+
+export const postArticle = createAsyncThunk("assortment/postArticle", async (goods, thunkAPI) => {
+  try {
+    const response = await requester.post("/assortment", goods);
     return response.data;
   } catch (e) {
     return thunkAPI.rejectWithValue(e.message);
