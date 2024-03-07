@@ -16,4 +16,7 @@ export const Item = styled.li`
 	/* height: 48px; */
 	padding: 16px 32px;
 	background-color: lightgray;
+	&._selected{
+		background-color: gray;
+	}
 `

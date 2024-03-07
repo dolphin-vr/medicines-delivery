@@ -9,10 +9,12 @@ import { selectShops } from "../../redux/shopsSlice";
 import { selectIsLoading } from "../../redux/shopsSlice";
 import { selectDrugs } from "../../redux/drugsSlice";
 import { selectAssortment } from "../../redux/assortmentSlice";
+import { useState } from "react";
 
 const IMG_URL = import.meta.env.VITE_IMG_URL;
 
 export const CatalogPage = () => {
+  const [filter, setFilter] = useState(0)
   const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,6 +26,7 @@ export const CatalogPage = () => {
   const drugs = useSelector(selectDrugs);
   const assortment = useSelector(selectAssortment);
 
+  // const selectShop=id
   // console.log("shops= ", shops); console.log("drugs f= ", drugs);
   // console.log("drugs= ", drugs);
   // console.log("assortment= ", assortment);
@@ -36,13 +39,15 @@ const imgUrl = id => {
   return`${IMG_URL}/${r.img}.jpg` ;
 };
   const showDrugList = assortment.length > 0 && drugs.length > 0;
-  const drugList = showDrugList ? assortment.map(el =>  ({ drug: drugName(el.drug), url: imgUrl(el.drug), shop: el.shop, price: el.price, _id: el._id })) : [];
+  const drugList = showDrugList
+    ? assortment.filter(el => filter === el.shop || filter === 0).map(el => ({ drug: drugName(el.drug), url: imgUrl(el.drug), shop: el.shop, price: el.price, _id: el._id }))
+    : [];
 
   // console.log("drugList= ", drugList);
 
   return (
     <Main>
-      {!isLoading && <ShopsList shops={shops} />}
+      {!isLoading && <ShopsList shops={shops} onClick={setFilter} filter={filter} />}
       {showDrugList && <DrugsList goods={drugList} />}
     </Main>
   );
