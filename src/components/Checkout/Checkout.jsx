@@ -1,8 +1,6 @@
-// import { useSelector } from "react-redux";
 import { List, Order, Text, Wrapper } from "./Checkout.styled"
 
 export const Checkout = ({orders, onClick}) => {
-		console.log("orders= ", orders);
 	const num = orders.length;
 	return (
     <Wrapper>

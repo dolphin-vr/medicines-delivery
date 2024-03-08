@@ -1,15 +1,12 @@
 import { useDispatch } from "react-redux";
 import { BtnAdd, Img, Item, List, Name, Price } from "./DrugsList.styled";
-import { addCartItem, selectCart } from "../../redux/cartSlice";
-import { useSelector } from "react-redux";
+import { addCartItem, } from "../../redux/cartSlice";
 
 export const DrugsList = ({ goods }) => {
   const dispatch = useDispatch();
-  const cart = useSelector(selectCart);
   
   const handleAdd = item => {
     dispatch(addCartItem(item))
-    console.log('cart= ', cart)
   }
   return (
     <List>

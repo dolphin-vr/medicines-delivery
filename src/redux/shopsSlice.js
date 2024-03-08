@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchShops } from "./operations";
 
 const handlePending = state => {
-  state.isLoading = true;
+  state.isShopsLoading = true;
   state.error = null;
 };
 const handleRejected = (state, action) => {
-  state.isLoading = false;
+  state.isShopsLoading = false;
   state.error = action.payload;
 };
 
@@ -14,7 +14,7 @@ const shopsSlice = createSlice({
   name: "shops",
   initialState: {
     shops: [],
-    isLoading: false,
+    isShopsLoading: false,
     error: null,
   },
   extraReducers: builder => {
@@ -22,7 +22,7 @@ const shopsSlice = createSlice({
       .addCase(fetchShops.pending, handlePending)
       .addCase(fetchShops.fulfilled, (state, action) => {
         state.shops = action.payload;
-        state.isLoading = false;
+        state.isShopsLoading = false;
         state.error = null;
       })
       .addCase(fetchShops.rejected, handleRejected);
@@ -33,5 +33,5 @@ const shopsSlice = createSlice({
 export const shopsReducer = shopsSlice.reducer;
 
 export const selectShops = state => state.shops.shops;
-export const selectIsLoading = state => state.shops.isLoading;
+export const selectisShopsLoading = state => state.shops.isShopsLoading;
 export const selectError = state => state.shops.error;

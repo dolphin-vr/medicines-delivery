@@ -10,10 +10,7 @@ const userSlice = createSlice({
   },
   reducers: {
     editUser: (state, action) => {
-      // console.log('user state= ', state.user);
-      // console.log('user payl= ', action.payload);
       state.user = { ...action.payload }
-      // console.log('state= ', state)
     },
   },
 });
