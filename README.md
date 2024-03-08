@@ -8,7 +8,7 @@ Web application where users can order medicines delivery
 https://dolphin-vr.github.io/medicines-delivery/
 
   
-  Backend was specially developed for this project ([Source on GitHub](hhttps://github.com/dolphin-vr/medicines-backend))
+  Backend was specially developed for this project ([Source on GitHub](https://github.com/dolphin-vr/medicines-backend))
 
 ### How to run the application
 
