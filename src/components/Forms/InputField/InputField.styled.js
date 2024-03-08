@@ -19,13 +19,4 @@ export const StyledField = styled.input`
       color: ${({ theme }) => theme.colors.red};
       border-color: ${({ theme }) => theme.colors.red};
    }
-
-   @media (min-width: 768px) {
-      width: 336px;
-      height: 44px;
-   }
-
-   @media (min-width: 1440px) {
-      width: 386px;
-   }
 `;
