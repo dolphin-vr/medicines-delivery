@@ -16,9 +16,11 @@ export const DrugsList = ({ goods }) => {
       {goods.map(el => (
         <Item key={el._id}>
           <Img src={el.url} />
-          <Name>{el.drug}</Name>
+          <Name>{el.drugName}</Name>
           <Price>{el.price}</Price>
-          <BtnAdd type="button" onClick={()=>handleAdd(el)}>Add to Cart</BtnAdd>
+          <BtnAdd type="button" onClick={() => handleAdd(el)}>
+            Add to Cart
+          </BtnAdd>
         </Item>
       ))}
     </List>

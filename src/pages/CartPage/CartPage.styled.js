@@ -11,3 +11,6 @@ export const Main = styled.main`
 
 export const CartWrap = styled.section`
 `
+
+export const Order = styled.section`
+`

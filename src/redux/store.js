@@ -9,9 +9,19 @@ import { shopsReducer } from "./shopsSlice";
 import { drugReducer } from "./drugsSlice";
 import { assortmentReducer } from "./assortmentSlice";
 import { cartReducer } from "./cartSlice";
+import { userReducer } from "./userSlice";
+import { orderReducer } from "./orderSlice";
 
 const cartPersistConfig = {
-  key: "medicines",
+  key: "medicinesCart",
+  storage,
+};
+const userPersistConfig = {
+  key: "medicinesUser",
+  storage,
+};
+const orderPersistConfig = {
+  key: "medicinesOrder",
   storage,
 };
 
@@ -21,6 +31,8 @@ export const store = configureStore({
     drugs: drugReducer,
     assortment: assortmentReducer,
     cart: persistReducer(cartPersistConfig, cartReducer),
+    user: persistReducer(userPersistConfig, userReducer),
+    order: persistReducer(orderPersistConfig, orderReducer),
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

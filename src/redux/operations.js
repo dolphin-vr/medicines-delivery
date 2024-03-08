@@ -32,6 +32,18 @@ export const fetchAssortment = createAsyncThunk("drugs/fetchAssortment", async (
   }
 });
 
+export const postOrder = createAsyncThunk("order/postOrder", async (order, thunkAPI) => {
+  try {
+    console.log('posted order= ', order);
+    const response = await requester.post("/order", order);
+    console.log('response= ', response);
+    console.log("data= ", response.data);
+    return response.data;
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.message);
+  }
+});
+
 export const postCartItem = createAsyncThunk("cart/postCartItem", async (item, thunkAPI) => {
   try {
     const response = await requester.post("/cart", item);
