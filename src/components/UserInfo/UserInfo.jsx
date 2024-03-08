@@ -4,7 +4,7 @@ export const UserInfo = ({handleInput}) => {
 	return (
     <UserForm>
       <Label>Name</Label>
-      <StyledField name={"user"} type="text" placeholder="Enter your name" onChange={e => handleInput(e)} />
+      <StyledField name={"name"} type="text" placeholder="Enter your name" onChange={e => handleInput(e)} />
       <Label>Email</Label>
       <StyledField name={"email"} type="email" placeholder="Enter your email" onChange={e => handleInput(e)} />
       <Label>Phone</Label>

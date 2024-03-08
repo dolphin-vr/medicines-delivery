@@ -23,22 +23,19 @@ const cartSlice = createSlice({
       if (idx === -1) {
         state.cart.push({ ...action.payload, amount: 1 });
       } else {
-        state.cart[idx].amount +=1;
+        state.cart[idx].amount++;
       }
-      // console.log("state= ", state);
-    },    
+    },
     editCartItem: (state, action) => {
-      console.log('payl= ', action.payload);
-      console.log('state= ', state.cart);
       const idx = state.cart.findIndex(el => el._id === action.payload._id);
-      console.log('idx= ', idx);
       if (idx === -1) {
-        state.error="Item not found"
+        state.error = "Item not found";
       } else {
-        console.log("cart idem #", idx, "  =  ", state.cart[idx]);
         state.cart[idx].amount = action.payload.amount;
       }
-      // console.log("state= ", state);
+    },
+    emptyCart: (state) => {
+        state.cart = [];
     },
   },
   extraReducers: builder => {
@@ -53,7 +50,7 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addCartItem, editCartItem } = cartSlice.actions;
+export const { addCartItem, editCartItem, emptyCart } = cartSlice.actions;
 export const cartReducer = cartSlice.reducer;
 
 export const selectCart = state => state.cart.cart;

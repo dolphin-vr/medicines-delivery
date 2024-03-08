@@ -16,7 +16,7 @@ export const CartItem = ({ item, handleChange }) => {
           name="amount"
           value={amount}
           onChange={e => {
-            setAmount(e.target.value), handleChange({ _id: item._id, amount: e.target.value });
+            setAmount(e.target.value), handleChange({ _id: item._id, amount: e.target.value, shop: item.shop });
           }}
         />
       </Info>
