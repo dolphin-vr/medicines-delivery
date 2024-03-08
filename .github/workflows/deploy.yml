@@ -21,8 +21,9 @@ concurrency:
   cancel-in-progress: true
 
 #Allow repo secrets
-# env:
-#   VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
+env:
+  VITE_API_URL: ${{ secrets.VITE_API_URL }}
+  VITE_IMG_URL: ${{ secrets.VITE_IMG_URL }}
 
 jobs:
   # Single deploy job since we're just deploying

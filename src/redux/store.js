@@ -1,24 +1,26 @@
 import { configureStore } from "@reduxjs/toolkit";
 import {
   persistStore,
-  // persistReducer,
+  persistReducer,
   FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER
 } from "redux-persist";
-// import storage from "redux-persist/lib/storage";
+import storage from "redux-persist/lib/storage";
 import { shopsReducer } from "./shopsSlice";
 import { drugReducer } from "./drugsSlice";
 import { assortmentReducer } from "./assortmentSlice";
+import { cartReducer } from "./cartSlice";
 
-// const medicinesPersistConfig = {
-//   key: "medicines",
-//   storage,
-// };
+const cartPersistConfig = {
+  key: "medicines",
+  storage,
+};
 
 export const store = configureStore({
   reducer: {
     shops: shopsReducer,
     drugs: drugReducer,
     assortment: assortmentReducer,
+    cart: persistReducer(cartPersistConfig, cartReducer),
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

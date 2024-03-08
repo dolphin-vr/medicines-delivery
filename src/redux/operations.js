@@ -7,7 +7,6 @@ export const requester = axios.create({
 
 export const fetchShops = createAsyncThunk("shops/fetchShops", async (_, thunkAPI) => {
   try {
-    // console.log("get shops");
     const response = await requester.get("/shops");
     return response.data;
   } catch (e) {
@@ -17,7 +16,6 @@ export const fetchShops = createAsyncThunk("shops/fetchShops", async (_, thunkAP
 
 export const fetchDrugs = createAsyncThunk("drugs/fetchDrugs", async (_, thunkAPI) => {
   try {
-    // console.log("get drugs");
     const response = await requester.get("/drugs");
     return response.data;
   } catch (e) {
@@ -27,8 +25,16 @@ export const fetchDrugs = createAsyncThunk("drugs/fetchDrugs", async (_, thunkAP
 
 export const fetchAssortment = createAsyncThunk("drugs/fetchAssortment", async (_, thunkAPI) => {
   try {
-    // console.log("get /assortment");
     const response = await requester.get("/assortment");
+    return response.data;
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.message);
+  }
+});
+
+export const postCartItem = createAsyncThunk("cart/postCartItem", async (item, thunkAPI) => {
+  try {
+    const response = await requester.post("/cart", item);
     return response.data;
   } catch (e) {
     return thunkAPI.rejectWithValue(e.message);

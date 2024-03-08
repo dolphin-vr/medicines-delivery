@@ -36,7 +36,7 @@ const theme = {
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {/* <PersistGate loading={null} persistor={persistor}> */}
+    <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter basename="/medicines-delivery">
         <ThemeProvider theme={theme}>
           <Provider store={store}>
@@ -44,6 +44,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           </Provider>
         </ThemeProvider>
       </BrowserRouter>
-    {/* </PersistGate> */}
+    </PersistGate>
   </React.StrictMode>
 );
