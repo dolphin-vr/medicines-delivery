@@ -5,7 +5,7 @@ export const ShopsList = ({shops, onClick, filter}) => {
     <Aside>
       <h2>ShopsList</h2>
       <List>
-        <Item key={0} onClick={() => onClick(0)} className={0 === filter ? "_selected" : ""}>
+        <Item key={"all"} onClick={() => onClick("all")} className={0 === filter ? "_selected" : ""}>
           {"All shops"}
         </Item>
         {shops.map(el => (

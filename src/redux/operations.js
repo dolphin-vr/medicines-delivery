@@ -35,6 +35,8 @@ export const fetchAssortment = createAsyncThunk("drugs/fetchAssortment", async (
 export const postOrder = createAsyncThunk("order/postOrder", async (order, thunkAPI) => {
   try {
     const response = await requester.post("/order", order);
+    console.log("response= ", response);
+    console.log("data= ", response.data);
     return response.data;
   } catch (e) {
     return thunkAPI.rejectWithValue(e.message);
