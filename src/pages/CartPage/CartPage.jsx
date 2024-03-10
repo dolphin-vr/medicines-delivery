@@ -1,15 +1,15 @@
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import { CartWrap, Main, Order } from "./CartPage.styled";
-import { editCartItem, emptyCart, selectCart } from "../../redux/cartSlice";
-import { useDispatch } from "react-redux";
-import { CartList } from "../../components/CartList/CartList";
-import { useState } from "react";
-import { Checkout } from "../../components/Checkout/Checkout";
-import { UserInfo } from "../../components/UserInfo/UserInfo";
-import { editUser, selectUser,  } from "../../redux/userSlice";
-import { addOrder, editOrderItem, selectOrders, selectIsOrderLoading } from "../../redux/orderSlice";
 import { postOrder } from "../../redux/operations";
+import { editUser, selectUser } from "../../redux/userSlice";
+import { editCartItem, emptyCart, selectAllCart, selectCart } from "../../redux/cartSlice";
+import { addOrder, editOrderItem, selectOrders, selectIsOrderLoading, selectOrderStatus, removeOrder } from "../../redux/orderSlice";
+import { CartWrap, Main, Order } from "./CartPage.styled";
+import { UserInfo } from "../../components/UserInfo/UserInfo";
+import { CartList } from "../../components/CartList/CartList";
+import { Checkout } from "../../components/Checkout/Checkout";
+import { Loader } from "../../components/Loader/Loader";
 
 export const CartPage = () => {
   const dispatch = useDispatch();
@@ -17,12 +17,18 @@ export const CartPage = () => {
   const orders = useSelector(selectOrders);
   const user = useSelector(selectUser);
   const isOrderLoading = useSelector(selectIsOrderLoading);
+  const statusOrder = useSelector(selectOrderStatus);
 
-  const [userInfo, setUserInfo] = useState(user); //{ name: "", email: "", phone: "", address: "" }
+  const allCart = useSelector(selectAllCart);
+  console.log("all cart= ", allCart);
+  console.log("user= ", user);
+
+  const [userInfo, setUserInfo] = useState(user);
   const [showCart, setShowCart] = useState(cart.length > 0);
   const [showCheckout, setShowCheckout] = useState(cart.length === 0 && orders.length > 0);
   const [currentOrder, setCurrentOrder] = useState(null);
-  console.log("userInfo== ", userInfo, showCart,showCheckout, currentOrder);
+  const [postedOrder, setPostedOrder] = useState(null);
+  console.log("userInfo== ", userInfo, showCart, showCheckout, currentOrder);
 
   const changeCartItem = item => {
     dispatch(editCartItem(item));
@@ -56,6 +62,7 @@ export const CartPage = () => {
     dispatch(editUser(userInfo));
     const filteredCart = cart.filter(el => el.amount > 0);
     const shopList = [...new Set(filteredCart.map(el => el.shop))];
+    console.log("user after disp= ", user);
     shopList.forEach(shop => {
       const goods = filteredCart.filter(x => x.shop === shop);
       const shopName = goods[0].shopName;
@@ -74,7 +81,18 @@ export const CartPage = () => {
   const submitOrder = order => {
     const goods = order.goods.map(el => ({ drug: el.drug, price: el.price, amount: el.amount }));
     dispatch(postOrder({ user: userInfo, shop: order.shop, goods }));
+    setPostedOrder(order.shop);
   };
+  useEffect(() => {
+    if (statusOrder === 201) {
+      dispatch(removeOrder(postedOrder));
+      setCurrentOrder(null);
+      setPostedOrder(null);
+      if (orders.length > 0) {
+        setShowCheckout(true);
+      }
+    }
+  }, [dispatch, orders.length, postedOrder, statusOrder]);
 
   const handleInput = e => {
     setUserInfo(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -84,6 +102,7 @@ export const CartPage = () => {
 
   const showOrder = !!currentOrder;
   const orderData = showOrder ? orders.find(el => el.shop === currentOrder) : {};
+  const showLoader = isOrderLoading;
 
   return (
     <Main>
@@ -111,7 +130,7 @@ export const CartPage = () => {
           </button>
         </Order>
       )}
-      {isOrderLoading&&<span>Sending order</span>}
+      {showLoader && <Loader />}
     </Main>
   );
 };

@@ -34,6 +34,8 @@ export const Amount = styled.input`
   padding: 0 0 0 8px;
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button {
+    width: 30px;
+    height: 32px;
     opacity: 1;
   }
 `;
