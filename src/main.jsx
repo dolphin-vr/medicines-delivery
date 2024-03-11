@@ -19,7 +19,8 @@ const theme = {
     normalBtn: "#43b02a",
     activeBtn: "#3b9425", //#4f945d
     hoverBgr: "#dcfde3",
-    navy: "#44c25f",
+    green: "#44c25f",
+    orange: "#f96d15",
     red: "#c00000",
   },
   radii: {

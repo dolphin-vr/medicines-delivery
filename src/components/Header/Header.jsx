@@ -1,6 +1,9 @@
-import { Logo, MainNav, NavItem, StyledLink, SvgIcon, Wrapper } from "./Header.styled"
+import { useSelector } from "react-redux";
+import { Cart, CartIcon, Indicator, Logo, MainNav, NavItem, StyledLink, SvgIcon, Wrapper } from "./Header.styled"
+import { selectIndicator } from "../../redux/cartSlice";
 
-export const Header = () =>{
+export const Header = () => {
+  const indicator = useSelector(selectIndicator);
 	return (
     <Wrapper>
       <Logo to="/">
@@ -18,6 +21,10 @@ export const Header = () =>{
           <StyledLink to="/cart">Shopping Cart</StyledLink>
         </NavItem>
       </MainNav>
+      <Cart to="/cart">
+        <CartIcon tag={"icon-drugs5"} />
+        <Indicator>{indicator}</Indicator>
+      </Cart>
     </Wrapper>
   );
 }
