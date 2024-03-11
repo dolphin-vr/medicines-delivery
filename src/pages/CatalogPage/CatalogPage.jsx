@@ -1,28 +1,27 @@
-import { useSelector } from "react-redux";
-import { DrugsList } from "../../components/DrugsList/DrugsList";
-import { ShopsList } from "../../components/ShopsList/ShopsList";
-import { Main } from "./CatalogPage.styled";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch,useSelector } from "react-redux";
 import { fetchAssortment, fetchDrugs, fetchShops } from "../../redux/operations";
-import { selectShops } from "../../redux/shopsSlice";
-import { selectisShopsLoading } from "../../redux/shopsSlice";
+import { selectShops, selectisShopsLoading } from "../../redux/shopsSlice";
 import { selectDrugs, selectisDrugsLoading } from "../../redux/drugsSlice";
 import { selectAssortment, selectisAssortmentLoading } from "../../redux/assortmentSlice";
-import { useState } from "react";
+import { DrugsList } from "../../components/DrugsList/DrugsList";
+import { ShopsList } from "../../components/ShopsList/ShopsList";
+import { Aside, Main, Page } from "./CatalogPage.styled";
+import { Loader } from "../../components/Loader/Loader";
+import { Filter } from "../../components/Filter/Filter";
 
 const IMG_URL = import.meta.env.VITE_IMG_URL;
 
 export const CatalogPage = () => {
-  const [filter, setFilter] = useState(0);
+  const [filter, setFilter] = useState("all");
   const isShopsLoading = useSelector(selectisShopsLoading);
   const isDrugsLoading = useSelector(selectisDrugsLoading);
   const isAssortmentLoading = useSelector(selectisAssortmentLoading);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchShops());
-    dispatch(fetchDrugs());
     dispatch(fetchAssortment());
+    dispatch(fetchDrugs());
+    dispatch(fetchShops());
   }, [dispatch]);
   const shops = useSelector(selectShops);
   const drugs = useSelector(selectDrugs);
@@ -40,17 +39,24 @@ export const CatalogPage = () => {
     const r = drugs.find(d => d._id === id);
     return `${IMG_URL}/${r.img}.jpg`;
   };
-  const showDrugList = !isDrugsLoading && !isAssortmentLoading && assortment.length > 0 && drugs.length > 0;
+
+  const showLoader = isAssortmentLoading || isDrugsLoading || isShopsLoading;
+  const showDrugList = !showLoader && assortment.length > 0 && drugs.length > 0;
   const drugList = showDrugList
-    ? assortment
-      .filter(el => filter === el.shop || filter === 0)
-      .map(el => ({ ...el, drugName: drugName(el.drug), url: imgUrl(el.drug), shopName: shopName(el.shop) }))
+    ? assortment.filter(el => filter === el.shop || filter === "all").map(el => ({ ...el, drugName: drugName(el.drug), url: imgUrl(el.drug), shopName: shopName(el.shop) }))
     : [];
 
   return (
-    <Main>
-      {!isShopsLoading && <ShopsList shops={shops} onClick={setFilter} filter={filter} />}
-      {showDrugList && <DrugsList goods={drugList} />}
-    </Main>
+    <Page>
+      {showLoader && <Loader />}
+      <Aside>{!isShopsLoading && <ShopsList shops={shops} onClick={setFilter} filter={filter} />}
+        <Filter />
+      </Aside>
+      {showDrugList && (
+        <Main>
+          <DrugsList goods={drugList} />
+        </Main>
+      )}
+    </Page>
   );
 };

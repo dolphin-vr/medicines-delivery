@@ -1,19 +1,19 @@
-import { Aside, Item, List } from "./ShopsList.styled";
+import { Item, List, Title } from "./ShopsList.styled";
 
 export const ShopsList = ({shops, onClick, filter}) => {
 	return (
-    <Aside>
-      <h2>ShopsList</h2>
+    <>
+      <Title>Shops</Title>
       <List>
-        <Item key={0} onClick={() => onClick(0)} className={0 === filter ? "_selected" : ""}>
+        <Item key={"all"} onClick={() => onClick("all")} className={filter==="all" ? "_selected" : ""}>
           {"All shops"}
         </Item>
         {shops.map(el => (
-          <Item key={el._id} onClick={() => onClick(el._id)} className={el._id === filter ? "_selected" : ""}>
+          <Item key={el._id} onClick={() => onClick(el._id)} className={filter===el._id ? "_selected" : ""}>
             {el.name}
           </Item>
         ))}
       </List>
-    </Aside>
+    </>
   );
 }

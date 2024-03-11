@@ -2,12 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { postOrder } from "./operations";
 
 const handlePending = state => {
-  state.isLoading = true;
-  state.status = null;
+  state.isOrderLoading = true;
+  state.statusOrder = null;
   state.error = null;
 };
 const handleRejected = (state, action) => {
-  state.isLoading = false;
+  state.isOrderLoading = false;
   state.error = action.payload;
 };
 
@@ -15,8 +15,8 @@ const orderSlice = createSlice({
   name: "order",
   initialState: {
     orders: [],
-    isLoading: false,
-    status: null,
+    isOrderLoading: false,
+    statusOrder: null,
     error: null,
   },
   reducers: {
@@ -31,6 +31,16 @@ const orderSlice = createSlice({
         state.orders[idx].amount = action.payload.amount;
       }
     },
+    removeOrder: (state, action) => {
+      const idx = state.orders.findIndex(el => el.shop === action.payload);
+      console.log('ord reduc idx= ',idx)
+      if (idx === -1) {
+        state.error = "Item not Order";
+      } else {
+        state.orders.splice(idx, 1);
+        state.statusOrder = null;
+      }
+    },
     emptyOrder: state => {
       state.orders = [];
     },
@@ -39,17 +49,19 @@ const orderSlice = createSlice({
     builder
       .addCase(postOrder.pending, handlePending)
       .addCase(postOrder.fulfilled, (state, action) => {
-        state.status =action.payload;
-        state.isLoading = false;
+        state.statusOrder = action.payload;
+        state.isOrderLoading = false;
+        state.statusOrder = 201;
         state.error = null;
       })
       .addCase(postOrder.rejected, handleRejected);
   },
 });
 
-export const { addOrder,editOrderItem, emptyOrder } = orderSlice.actions;
+export const { addOrder, editOrderItem, removeOrder,emptyOrder } = orderSlice.actions;
 export const orderReducer = orderSlice.reducer;
 
 export const selectOrders = state => state.order.orders;
-export const selectIsLoading = state => state.order.isLoading;
-export const selectError = state => state.order.error;
+export const selectIsOrderLoading = state => state.order.isOrderLoading;
+export const selectOrderStatus = state => state.order.statusOrder;
+export const selectOrderError = state => state.order.error;

@@ -10,7 +10,10 @@ const userSlice = createSlice({
   },
   reducers: {
     editUser: (state, action) => {
-      state.user = { ...action.payload }
+      state.name = action.payload.name;
+      state.email = action.payload.email;
+      state.phone = action.payload.phone;
+      state.address = action.payload.address;
     },
   },
 });

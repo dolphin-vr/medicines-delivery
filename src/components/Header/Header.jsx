@@ -5,7 +5,7 @@ export const Header = () =>{
     <Wrapper>
       <Logo to="/">
         <SvgIcon tag={"logo"} />
-        OCEAN Whale
+        OCEAN Pharmacy
       </Logo>
       <MainNav>
         <NavItem>

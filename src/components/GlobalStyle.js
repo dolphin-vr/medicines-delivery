@@ -18,7 +18,6 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: ${({ theme }) => theme.colors.black};
-    background-color: ${({ theme }) => theme.colors.background};
   }
   h1,
   h2,
@@ -49,14 +48,18 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 500;
     color: inherit;
-    background-color: transparent;
-    border: 1px solid ${({ theme }) => theme.colors.gray};
+    background-color: ${({ theme }) => theme.colors.normalBtn};
+    border: none;
     border-radius: ${({ theme }) => theme.radii.sm};
     transition: background-color ${({ theme }) => theme.effect.cubic}
       fill  ${({ theme }) => theme.effect.cubic};
   }
 
+  button:hover,
+  button.active {
+    background-color: ${({ theme }) => theme.colors.activeBtn};
+  }
 `;

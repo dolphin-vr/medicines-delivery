@@ -1,41 +1,40 @@
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import { CartWrap, Main, Order } from "./CartPage.styled";
-import { editCartItem, selectCart } from "../../redux/cartSlice";
-import { useDispatch } from "react-redux";
-import { CartList } from "../../components/CartList/CartList";
-import { useState } from "react";
-import { Checkout } from "../../components/Checkout/Checkout";
-import { UserInfo } from "../../components/UserInfo/UserInfo";
-import { editUser,  } from "../../redux/userSlice";
-import { addOrder, editOrderItem, selectOrders } from "../../redux/orderSlice";
 import { postOrder } from "../../redux/operations";
+import { editUser, selectUser } from "../../redux/userSlice";
+import { editCartItem, emptyCart, selectCart } from "../../redux/cartSlice";
+import { addOrder, editOrderItem, selectOrders, selectIsOrderLoading, selectOrderStatus, removeOrder } from "../../redux/orderSlice";
+import { CartWrap, Main, Order } from "./CartPage.styled";
+import { UserInfo } from "../../components/UserInfo/UserInfo";
+import { CartList } from "../../components/CartList/CartList";
+import { Checkout } from "../../components/Checkout/Checkout";
+import { Loader } from "../../components/Loader/Loader";
+import { CartEmpty } from "../../components/CartEmpty/CartEmpty";
 
 export const CartPage = () => {
-  const [userInfo, setUserInfo] = useState({ name: "", email: "", phone: "", address: "" });
-  const [showCart, setShowCart] = useState(true);
-  const [showCheckout, setShowCheckout] = useState(false);
-  const [currentOrder, setCurrentOrder] = useState(null);
-  
   const dispatch = useDispatch();
   const cart = useSelector(selectCart);
   const orders = useSelector(selectOrders);
+  const user = useSelector(selectUser);
+  const isOrderLoading = useSelector(selectIsOrderLoading);
+  const statusOrder = useSelector(selectOrderStatus);
 
-  const changeCartItem = item => {
-    dispatch(editCartItem(item));
-  };
-  const changeOrderItem = item => {
-    dispatch(editOrderItem(item));
-  };
+  const [userInfo, setUserInfo] = useState(user);
+  const [currentOrder, setCurrentOrder] = useState(null);
+  const [postedOrder, setPostedOrder] = useState(null);
+
+  const changeCartItem = item => dispatch(editCartItem(item));
+  const changeOrderItem = item => dispatch(editOrderItem(item));
 
   const checkoutOrder = cart => {
-    if (Object.keys(userInfo).length <4) {
+    if (Object.keys(userInfo).length < 4) {
       toast.error("Please enter your contact data");
       return;
     }
     if (userInfo.name === "") {
       toast.error("Please enter your name");
-      return
+      return;
     }
     if (userInfo.email === "") {
       toast.error("Please enter your email");
@@ -57,34 +56,44 @@ export const CartPage = () => {
       const shopName = goods[0].shopName;
       dispatch(addOrder({ shop, shopName, goods }));
     });
-    setShowCart(false);
-    setShowCheckout(true);
+    dispatch(emptyCart());
   };
 
-  const confirmOrder = shop => {
-    setCurrentOrder(shop);
-    setShowCheckout(false);
-  }
+  const confirmOrder = shop => setCurrentOrder(shop);
 
   const submitOrder = order => {
     const goods = order.goods.map(el => ({ drug: el.drug, price: el.price, amount: el.amount }));
-    dispatch(postOrder({user: userInfo, shop: order.shop, goods }))
-  }
+    dispatch(postOrder({ user: userInfo, shop: order.shop, goods }));
+    setPostedOrder(order.shop);
+    setCurrentOrder(null);
+  };
+  useEffect(() => {
+    if (statusOrder === 201) {
+      dispatch(removeOrder(postedOrder));
+      setPostedOrder(null);
+    }
+  }, [dispatch, orders.length, postedOrder, statusOrder]);
 
   const handleInput = e => {
-    setUserInfo(prev=>({...prev, [e.target.name]: e.target.value}))
-  }
+    setUserInfo(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
-  const sortedCart = cart.sort((a, b) => a.drugName.localeCompare(b.drugName));
+  const sortedCart = [...cart].sort((a, b) => a.drugName.localeCompare(b.drugName));
 
+  const showCart = (cart.length > 0);
+  const showCheckout = !showCart && orders.length > 0 && !currentOrder &&!postedOrder;
+  const orderData = !!currentOrder ? orders.find(el => el.shop === currentOrder) : {};
   const showOrder = !!currentOrder;
-  const orderData = showOrder ? orders.find(el => el.shop === currentOrder):{};
+  console.log('orderData= ', orderData)
+  console.log('showOrder= ', showOrder)
+  const showEmptyMsg = cart.length === 0 && orders.length === 0;
+  const showLoader = isOrderLoading;
 
   return (
     <Main>
       {showCart && (
         <>
-          <UserInfo handleInput={handleInput} />
+          <UserInfo values={userInfo} handleInput={handleInput} />
           <CartWrap>
             <CartList cart={sortedCart} handleChange={changeCartItem} />
             <button type="button" onClick={() => checkoutOrder(cart)}>
@@ -106,6 +115,8 @@ export const CartPage = () => {
           </button>
         </Order>
       )}
+      {showEmptyMsg && <CartEmpty />}
+      {showLoader && <Loader />}
     </Main>
   );
 };
