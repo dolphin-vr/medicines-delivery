@@ -1,11 +1,13 @@
 import { useState } from "react"
-import { Amount, Card, Img, Info, Name, Price, Shop } from "./CartItem.styled"
+import { Amount, Card, Img, Imgbox, Info, Name, Price, Shop } from "./CartItem.styled"
 
 export const CartItem = ({ item, handleChange }) => {
 	const [amount, setAmount] = useState(item.amount)
 	return (
     <Card>
-      <Img src={item.url} />
+      <Imgbox>
+        <Img src={item.url} />
+      </Imgbox>
       <Info>
         <Name>{item.drugName}</Name>
         <Shop>{item.shopName}</Shop>

@@ -9,4 +9,5 @@ export const List = styled.ul`
 	padding: 12px;
 `
 export const Item = styled.li`
-`
+  box-shadow: 0 1px 6px rgba(32, 33, 36, 0.2);
+`;

@@ -18,5 +18,4 @@ export const Main = styled.main`
 
 export const Aside = styled.aside`
   padding: 8px;
-  /* background-color: ${({ theme }) => theme.colors.background}; */
 `;

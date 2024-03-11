@@ -10,7 +10,7 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0;
-    font-family: sans-serif, Helvetica, Arial, system-ui;
+    font-family: Roboto, sans-serif, Helvetica, Arial, system-ui;
     font-size: 12px;
 	  line-height: 1.2;
     letter-spacing: 0.8px;

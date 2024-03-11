@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
 import { handleFilter } from "../../redux/filterSlice";
-import { Label, Radio, Radiola } from "./Filter.styled"
+import { Label, Radio, Radiola, Titlte } from "./Filter.styled"
 
 export const Filter = () => {
   const dispatch = useDispatch();
 	return (
     <Radiola onChange={e => dispatch(handleFilter(e.target.value))}>
-      <Label>Sort catalog by</Label>
+      <Titlte>Sort catalog by</Titlte>
       <Label>
         name
         <Radio type="radio" id="radio1" name="filter" value="name" />

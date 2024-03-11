@@ -24,16 +24,20 @@ const orderSlice = createSlice({
       state.orders.push(action.payload);
     },
     editOrderItem: (state, action) => {
-      const idx = state.orders.findIndex(el => el._id === action.payload._id);
-      if (idx === -1) {
-        state.error = "Item not found";
+      const shopIdx = state.orders.findIndex(el => el.shop === action.payload.shop);
+      if (shopIdx === -1) {
+        state.error = "Order not found";
       } else {
-        state.orders[idx].amount = action.payload.amount;
+        const idx = state.orders[shopIdx].goods.findIndex(el => el._id === action.payload._id);
+        if (idx === -1) {
+          state.error = "Item not found";
+        } else {
+          state.orders[shopIdx].goods[idx].amount = action.payload.amount;
+        }
       }
     },
     removeOrder: (state, action) => {
       const idx = state.orders.findIndex(el => el.shop === action.payload);
-      console.log('ord reduc idx= ',idx)
       if (idx === -1) {
         state.error = "Item not Order";
       } else {
