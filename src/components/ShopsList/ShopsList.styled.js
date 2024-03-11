@@ -1,13 +1,9 @@
 import styled from "styled-components";
 
-export const Aside = styled.aside`
-  padding: 8px;
-  /* background-color: ${({ theme }) => theme.colors.background}; */
-`;
-
 export const Title = styled.h2`
   text-align: center;
-`
+  font-weight: 500;
+`;
 export const List = styled.ul`
   width: 180px;
   display: flex;
@@ -23,8 +19,12 @@ export const Item = styled.li`
   font-weight: 500;
   border-radius: ${({ theme }) => theme.radii.lm};
   background-color: ${({ theme }) => theme.colors.normalBtn};
-  &._selected,
   &:hover {
+    background-color: ${({ theme }) => theme.colors.activeBtn};
+  }
+  &._selected {
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.white};
     background-color: ${({ theme }) => theme.colors.activeBtn};
   }
 `;

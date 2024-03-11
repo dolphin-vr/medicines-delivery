@@ -16,10 +16,10 @@ const theme = {
     gray: "#a7a7a7",
     mediumgray: "#525252",
     darkgray: "#3f3f3f",
-    normalBtn: "#44c25f",
-    activeBtn: "#4f945d",
+    normalBtn: "#43b02a",
+    activeBtn: "#3b9425", //#4f945d
     hoverBgr: "#dcfde3",
-    navy: "#04043d",
+    navy: "#44c25f",
     red: "#c00000",
   },
   radii: {

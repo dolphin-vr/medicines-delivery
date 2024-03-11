@@ -1,8 +1,8 @@
-import { Aside, Item, List, Title } from "./ShopsList.styled";
+import { Item, List, Title } from "./ShopsList.styled";
 
 export const ShopsList = ({shops, onClick, filter}) => {
 	return (
-    <Aside>
+    <>
       <Title>Shops</Title>
       <List>
         <Item key={"all"} onClick={() => onClick("all")} className={filter==="all" ? "_selected" : ""}>
@@ -14,6 +14,6 @@ export const ShopsList = ({shops, onClick, filter}) => {
           </Item>
         ))}
       </List>
-    </Aside>
+    </>
   );
 }

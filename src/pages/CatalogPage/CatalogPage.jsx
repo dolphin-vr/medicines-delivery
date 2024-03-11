@@ -6,8 +6,9 @@ import { selectDrugs, selectisDrugsLoading } from "../../redux/drugsSlice";
 import { selectAssortment, selectisAssortmentLoading } from "../../redux/assortmentSlice";
 import { DrugsList } from "../../components/DrugsList/DrugsList";
 import { ShopsList } from "../../components/ShopsList/ShopsList";
-import { Main, Page } from "./CatalogPage.styled";
+import { Aside, Main, Page } from "./CatalogPage.styled";
 import { Loader } from "../../components/Loader/Loader";
+import { Filter } from "../../components/Filter/Filter";
 
 const IMG_URL = import.meta.env.VITE_IMG_URL;
 
@@ -48,7 +49,9 @@ export const CatalogPage = () => {
   return (
     <Page>
       {showLoader && <Loader />}
-      {!isShopsLoading && <ShopsList shops={shops} onClick={setFilter} filter={filter} />}
+      <Aside>{!isShopsLoading && <ShopsList shops={shops} onClick={setFilter} filter={filter} />}
+        <Filter />
+      </Aside>
       {showDrugList && (
         <Main>
           <DrugsList goods={drugList} />

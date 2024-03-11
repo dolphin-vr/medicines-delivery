@@ -52,7 +52,7 @@ ul {
     font-weight: 500;
     color: inherit;
     background-color: ${({ theme }) => theme.colors.normalBtn};
-    border: 1px solid ${({ theme }) => theme.colors.gray};
+    border: none;
     border-radius: ${({ theme }) => theme.radii.sm};
     transition: background-color ${({ theme }) => theme.effect.cubic}
       fill  ${({ theme }) => theme.effect.cubic};

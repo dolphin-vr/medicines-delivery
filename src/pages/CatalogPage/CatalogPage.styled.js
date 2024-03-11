@@ -15,3 +15,8 @@ export const Main = styled.main`
   /* height: calc(100vh - 48px); */
   overflow-y: scroll;
 `;
+
+export const Aside = styled.aside`
+  padding: 8px;
+  /* background-color: ${({ theme }) => theme.colors.background}; */
+`;

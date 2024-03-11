@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Card = styled.div`
-  width: 162px;
+  width: 160px;
   padding: 12px;
   background-color: ${({ theme }) => theme.colors.white};
   /* background-color: lightgray; */
