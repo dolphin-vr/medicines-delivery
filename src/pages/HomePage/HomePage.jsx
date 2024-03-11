@@ -14,6 +14,7 @@ export const HomePage=() => {
         <Item>Check the list and quantity of medicines</Item>
         <Item>Click the button &quot;Submit Order&quot; to confirm</Item>
       </List>
+      {/* <Loader /> */}
     </Main>
   );
 }

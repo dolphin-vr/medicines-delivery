@@ -8,6 +8,7 @@ export const Page = styled.div`
   display: flex;
   flex-direction: row;
   gap: 12px;
+  /* align-items: center; */
 `;
 
 export const Main = styled.main`

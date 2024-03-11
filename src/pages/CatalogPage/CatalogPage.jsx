@@ -56,10 +56,12 @@ export const CatalogPage = () => {
   return (
     <Page>
       {showLoader && <Loader />}
-      <Aside>
-        {!isShopsLoading && <ShopsList shops={shops} onClick={setShopFilter} filter={shopFilter} />}
-        <Filter />
-      </Aside>
+      {!isShopsLoading && (
+        <Aside>
+          <ShopsList shops={shops} onClick={setShopFilter} filter={shopFilter} />
+          <Filter />
+        </Aside>
+      )}
       {showDrugList && (
         <Main>
           <DrugsList goods={sortedList} />
