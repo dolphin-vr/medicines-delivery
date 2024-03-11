@@ -9,14 +9,18 @@ import { ShopsList } from "../../components/ShopsList/ShopsList";
 import { Aside, Main, Page } from "./CatalogPage.styled";
 import { Loader } from "../../components/Loader/Loader";
 import { Filter } from "../../components/Filter/Filter";
+import { selectFilter } from "../../redux/filterSlice";
+import { sortList } from "../../utils/sortList";
 
 const IMG_URL = import.meta.env.VITE_IMG_URL;
 
 export const CatalogPage = () => {
-  const [filter, setFilter] = useState("all");
+  const [shopFilter, setShopFilter] = useState("all");
   const isShopsLoading = useSelector(selectisShopsLoading);
   const isDrugsLoading = useSelector(selectisDrugsLoading);
   const isAssortmentLoading = useSelector(selectisAssortmentLoading);
+  const sortDrugs = useSelector(selectFilter);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchAssortment());
@@ -43,18 +47,22 @@ export const CatalogPage = () => {
   const showLoader = isAssortmentLoading || isDrugsLoading || isShopsLoading;
   const showDrugList = !showLoader && assortment.length > 0 && drugs.length > 0;
   const drugList = showDrugList
-    ? assortment.filter(el => filter === el.shop || filter === "all").map(el => ({ ...el, drugName: drugName(el.drug), url: imgUrl(el.drug), shopName: shopName(el.shop) }))
+    ? assortment
+      .filter(el => shopFilter === el.shop || shopFilter === "all")
+      .map(el => ({ ...el, drugName: drugName(el.drug), url: imgUrl(el.drug), shopName: shopName(el.shop) }))
     : [];
+  const sortedList = sortList(drugList, sortDrugs);
 
   return (
     <Page>
       {showLoader && <Loader />}
-      <Aside>{!isShopsLoading && <ShopsList shops={shops} onClick={setFilter} filter={filter} />}
+      <Aside>
+        {!isShopsLoading && <ShopsList shops={shops} onClick={setShopFilter} filter={shopFilter} />}
         <Filter />
       </Aside>
       {showDrugList && (
         <Main>
-          <DrugsList goods={drugList} />
+          <DrugsList goods={sortedList} />
         </Main>
       )}
     </Page>
