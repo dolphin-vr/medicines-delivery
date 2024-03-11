@@ -67,3 +67,31 @@ export const StyledLink = styled(NavLink)`
     color: ${({ theme }) => theme.colors.normalBtn};
   }
 `;
+
+export const Cart = styled(NavLink)`
+  position: relative;
+  display: inline-block;
+  margin-left: auto;
+  padding: ${({ theme }) => theme.spacing(1)} ${({ theme }) => theme.spacing(4)};
+  fill: ${({ theme }) => theme.colors.normalBtn};
+  /* outline: 1px solid blue; */
+`;
+
+export const CartIcon = styled(Icon)`
+  width: 36px;
+  height: 36px;
+  /* outline: 1px solid orange; */
+`;
+export const Indicator = styled.span`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.colors.orange};
+`;
