@@ -5,7 +5,7 @@ export const Checkout = ({orders, onClick}) => {
 	return (
     <Wrapper>
       <Text>
-        You have {num} orders in {num} shops
+        You have {num} {num === 1 ? "order" : "orders"} in {num} {num === 1 ? "shop" : "shops"}
       </Text>
       <Text>Select to confirm purchase</Text>
       <List>

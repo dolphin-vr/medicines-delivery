@@ -4,7 +4,6 @@ export const Card = styled.div`
   width: 160px;
   padding: 12px;
   background-color: ${({ theme }) => theme.colors.white};
-  /* background-color: lightgray; */
   border-radius: ${({ theme }) => theme.radii.lm};
   box-shadow: 0 1px 6px rgba(32, 33, 36, 0.2);
 `;
@@ -20,17 +19,17 @@ export const Imgbox = styled.div`
 `;
 export const Img = styled.img`
 	width: auto;
-	/* height: 140px; */
 `;
 
 export const Info = styled.div`
 
 `
 export const Name = styled.p`
-	height: 40px;
-	margin-bottom: 4px;
-	overflow-y: hidden;
-	font-size: 11px;
+  height: 40px;
+  margin-bottom: 4px;
+  overflow-y: hidden;
+  font-size: 11px;
+  font-family: "Roboto Condensed", sans-serif;
 `;
 export const Shop = styled.p`
 	font-weight: 600;

@@ -11,3 +11,5 @@ export const sortList = (list, crit) => {
       return [...list];
   }
 }
+
+export const total = list => list.reduce((sum, el) => sum + el.price * el.amount, 0).toFixed(2);

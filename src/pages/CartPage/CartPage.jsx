@@ -5,12 +5,13 @@ import { postOrder } from "../../redux/operations";
 import { editUser, selectUser } from "../../redux/userSlice";
 import { editCartItem, emptyCart, selectCart } from "../../redux/cartSlice";
 import { addOrder, editOrderItem, selectOrders, selectIsOrderLoading, selectOrderStatus, removeOrder } from "../../redux/orderSlice";
-import { CartWrap, Main, Order } from "./CartPage.styled";
+import { BtnSubmit, CartWrap, Main, Order, Total } from "./CartPage.styled";
 import { UserInfo } from "../../components/UserInfo/UserInfo";
 import { CartList } from "../../components/CartList/CartList";
 import { Checkout } from "../../components/Checkout/Checkout";
 import { Loader } from "../../components/Loader/Loader";
 import { CartEmpty } from "../../components/CartEmpty/CartEmpty";
+import { total } from "../../utils/utils";
 
 export const CartPage = () => {
   const dispatch = useDispatch();
@@ -84,8 +85,6 @@ export const CartPage = () => {
   const showCheckout = !showCart && orders.length > 0 && !currentOrder &&!postedOrder;
   const orderData = !!currentOrder ? orders.find(el => el.shop === currentOrder) : {};
   const showOrder = !!currentOrder;
-  console.log('orderData= ', orderData)
-  console.log('showOrder= ', showOrder)
   const showEmptyMsg = cart.length === 0 && orders.length === 0;
   const showLoader = isOrderLoading;
 
@@ -96,9 +95,10 @@ export const CartPage = () => {
           <UserInfo values={userInfo} handleInput={handleInput} />
           <CartWrap>
             <CartList cart={sortedCart} handleChange={changeCartItem} />
-            <button type="button" onClick={() => checkoutOrder(cart)}>
-              checkoutOrder
-            </button>
+            <BtnSubmit type="button" onClick={() => checkoutOrder(cart)}>
+              Checkout Order
+            </BtnSubmit>
+            <Total>Total cost: {total(sortedCart)} грн</Total>
           </CartWrap>
         </>
       )}
@@ -110,9 +110,10 @@ export const CartPage = () => {
       {showOrder && (
         <Order>
           <CartList cart={orderData.goods} handleChange={changeOrderItem} />
-          <button type="button" onClick={() => submitOrder(orderData)}>
+          <Total>Total cost: {total(orderData.goods)} грн</Total>
+          <BtnSubmit type="button" onClick={() => submitOrder(orderData)}>
             Submit Order
-          </button>
+          </BtnSubmit>
         </Order>
       )}
       {showEmptyMsg && <CartEmpty />}

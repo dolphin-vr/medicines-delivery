@@ -10,7 +10,7 @@ import { Aside, Main, Page } from "./CatalogPage.styled";
 import { Loader } from "../../components/Loader/Loader";
 import { Filter } from "../../components/Filter/Filter";
 import { selectFilter } from "../../redux/filterSlice";
-import { sortList } from "../../utils/sortList";
+import { sortList } from "../../utils/utils";
 
 const IMG_URL = import.meta.env.VITE_IMG_URL;
 

@@ -25,10 +25,6 @@ const orderPersistConfig = {
   key: "medicinesOrder",
   storage,
 };
-// const filterPersistConfig = {
-//   key: "medicinesFilter",
-//   storage,
-// };
 
 export const store = configureStore({
   reducer: {
@@ -38,7 +34,6 @@ export const store = configureStore({
     cart: persistReducer(cartPersistConfig, cartReducer),
     user: persistReducer(userPersistConfig, userReducer),
     order: persistReducer(orderPersistConfig, orderReducer),
-    // filter: persistReducer(filterPersistConfig, filterReducer),
     filter: filterReducer,
   },
   middleware: getDefaultMiddleware =>

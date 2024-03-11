@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 export const UserForm = styled.form`
-  /* width: 400px; */
-  /* margin: 0 auto; */
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -16,8 +14,6 @@ export const StyledField = styled.input`
   border: 1px solid ${({ theme }) => theme.colors.darkgray};
   color: ${({ theme }) => theme.colors.darkgray};
   background-color: ${({ theme }) => theme.colors.white};
-  font-size: 16px;
-  line-height: 1.25;
   outline: none;
 
   &::placeholder {
@@ -26,5 +22,9 @@ export const StyledField = styled.input`
 `;
 
 export const Label = styled.label`
-  /* margin-bottom: 12px; */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 16px;
+  line-height: 1.25;
 `;
